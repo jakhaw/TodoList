@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<nav class="navbar bg-secondary-subtle">
+    <div class="container">
+        <span>Add new item to the list name</span>
+        <form class="d-flex">
+            <input class="form-control form-control-lg me-4" type="text" placeholder="New Item...">
+            <button class="btn btn-outline-secondary" type=submit>Add</button>
+        </form>
+    </div>
+</nav>
+<main>
+    <div class="container-md p-2">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <input class="form-check-input me-3" type="checkbox" value="" id="firstCheckbox">
+                <span>An item</span>
+            </li>
+            <li class="list-group-item">
+                <input class="form-check-input me-3" type="checkbox" value="" id="firstCheckbox">
+                <label class="form-check-label" for="firstCheckbox">A second item</label>
+            </li>
+            <li class="list-group-item">
+                <input class="form-check-input me-3" type="checkbox" value="" id="firstCheckbox">
+                <label class="form-check-label" for="firstCheckbox">A third item</label>
+            </li>
+            <li class="list-group-item">
+                <input class="form-check-input me-3" type="checkbox" value="" id="firstCheckbox">
+                <label class="form-check-label" for="firstCheckbox">A fourth item</label>
+            </li>
+            <li class="list-group-item">
+                <input class="form-check-input me-3" type="checkbox" value="" id="firstCheckbox">
+                <label class="form-check-label" for="firstCheckbox">A fifth item</label>
+            </li>
+        </ul>
+    </div>
+</main>
+{% endblock %}

@@ -3,36 +3,24 @@
 {% block body %}
 <nav class="navbar bg-secondary-subtle">
     <div class="container">
-        <span>Add new item to the list name</span>
-        <form class="d-flex">
-            <input class="form-control form-control-lg me-4" type="text" placeholder="New Item...">
-            <button class="btn btn-outline-secondary" type=submit>Add</button>
-        </form>
+        <span>Add new task to the {{todolist.name}}</span>
+        {{ form_start(form) }}
+            <div class="d-flex">
+                {{ form_widget(form) }}
+                <button class="btn btn-outline-secondary ms-3" type="submit">Add</button>
+            </div>
+        {{ form_end(form) }}
     </div>
 </nav>
 <main>
     <div class="container-md p-2">
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <input class="form-check-input me-3" type="checkbox" value="" id="firstCheckbox">
-                <span>An item</span>
-            </li>
-            <li class="list-group-item">
-                <input class="form-check-input me-3" type="checkbox" value="" id="firstCheckbox">
-                <label class="form-check-label" for="firstCheckbox">A second item</label>
-            </li>
-            <li class="list-group-item">
-                <input class="form-check-input me-3" type="checkbox" value="" id="firstCheckbox">
-                <label class="form-check-label" for="firstCheckbox">A third item</label>
-            </li>
-            <li class="list-group-item">
-                <input class="form-check-input me-3" type="checkbox" value="" id="firstCheckbox">
-                <label class="form-check-label" for="firstCheckbox">A fourth item</label>
-            </li>
-            <li class="list-group-item">
-                <input class="form-check-input me-3" type="checkbox" value="" id="firstCheckbox">
-                <label class="form-check-label" for="firstCheckbox">A fifth item</label>
-            </li>
+            {% for task in tasks %}
+                <li class="list-group-item">
+                    <input class="form-check-input me-3" type="checkbox">
+                    <span>{{task.description}}</span>
+                </li>
+            {% endfor %}
         </ul>
     </div>
 </main>

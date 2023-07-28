@@ -24,16 +24,15 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'app_home')]
     public function index(Request $request): Response
     {
-        $todolists = $this->todoListRepository->findAll();
-
         $todolist = new TodoList();
         $form = $this->createForm(TodolistFormType::class, $todolist);
+        $user = $this->security->getUser();
+        $todolists = $user->getTodolists();
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            
             $newTodoList = $form->getData();
-
-            $user = $this->security->getUser();
 
             $newTodoList->setUser($user);
 

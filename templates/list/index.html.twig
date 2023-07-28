@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<nav class="navbar bg-secondary-subtle">
+<nav class="navbar bg-secondary-subtle position-relative">
+        <span class="position-absolute top-50 start-0 translate-middle-y"><a href="{{path('app_home')}}" class="me-3 ms-3"><button class="btn btn-outline-secondary btn-lg">Home</button></a></span>
     <div class="container">
         <span>Add new task to the {{todolist.name}}</span>
         {{ form_start(form) }}

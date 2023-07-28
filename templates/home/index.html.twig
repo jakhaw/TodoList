@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<nav class="navbar bg-secondary-subtle">
+<nav class="navbar bg-secondary-subtle position-relative">
+    <a href="{{path('app_logout')}}" class="position-absolute top-50 start-0 translate-middle-y link-secondary link-opacity-50-hover link-underline-opacity-50-hover ms-3 fs-5">Logout</a>
     <div class="container">
         <span>Hello {{app.user.email}} create Your new TODO LIST</span>
         {{ form_start(form) }}
@@ -21,7 +22,7 @@
                     <h5 class="card-title">
                         {{todolist.name}}
                     </h5>
-                    <a href="{{path('app_list', {id: todolist.id})}}"><button class="btn btn-outline-info">Open</button></a>
+                    <a href="{{path('app_list', {id: todolist.id})}}"><button class="btn btn-outline-light mt-3">Open</button></a>
                 </div>
             </div>
         </div>

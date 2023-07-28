@@ -3,117 +3,29 @@
 {% block body %}
 <nav class="navbar bg-secondary-subtle">
     <div class="container">
-        <span>Hi username create Your new TODO LIST</span>
-        <form class="d-flex">
-            <input class="form-control form-control-lg me-4" type="text" placeholder="List Name...">
-            <button class="btn btn-outline-secondary" type=submit>Add</button>
-        </form>
+        <span>Hello {{app.user.email}} create Your new TODO LIST</span>
+        {{ form_start(form) }}
+            <div class="d-flex">
+                {{ form_widget(form) }}
+                <button class="btn btn-outline-secondary ms-3" type="submit">Add</button>
+            </div>
+        {{ form_end(form) }}
     </div>
 </nav>
 <main>
-    <div class="row row-cols-1 row-cols-md-4 row-cols-xl-5 g-5 mx-auto p-5">
+<div class="row row-cols-1 row-cols-md-4 row-cols-xl-5 g-5 mx-auto p-5">
+    {% for todolist in todolists %}
         <div class="col">
             <div class="card text-bg-secondary border-secondary" aria-hidden="true">
                 <div class="card-body">
-                    <h5 class="card-title placeholder-glow">
-                    <span class="placeholder col-6"></span>
+                    <h5 class="card-title">
+                        {{todolist.name}}
                     </h5>
-                    <p class="card-text placeholder-glow">
-                    <span class="placeholder col-7"></span>
-                    <span class="placeholder col-4"></span>
-                    <span class="placeholder col-4"></span>
-                    <span class="placeholder col-6"></span>
-                    <span class="placeholder col-8"></span>
-                    </p>
-                    <a class="btn btn-primary disabled placeholder col-6"></a>
+                    <a href="{{path('app_list', {id: todolist.id})}}"><button class="btn btn-outline-info">Open</button></a>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card text-bg-secondary border-secondary" aria-hidden="true">
-                <div class="card-body">
-                    <h5 class="card-title placeholder-glow">
-                    <span class="placeholder col-6"></span>
-                    </h5>
-                    <p class="card-text placeholder-glow">
-                    <span class="placeholder col-7"></span>
-                    <span class="placeholder col-4"></span>
-                    <span class="placeholder col-4"></span>
-                    <span class="placeholder col-6"></span>
-                    <span class="placeholder col-8"></span>
-                    </p>
-                    <a class="btn btn-primary disabled placeholder col-6"></a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card text-bg-secondary border-secondary" aria-hidden="true">
-                <div class="card-body">
-                    <h5 class="card-title placeholder-glow">
-                    <span class="placeholder col-6"></span>
-                    </h5>
-                    <p class="card-text placeholder-glow">
-                    <span class="placeholder col-7"></span>
-                    <span class="placeholder col-4"></span>
-                    <span class="placeholder col-4"></span>
-                    <span class="placeholder col-6"></span>
-                    <span class="placeholder col-8"></span>
-                    </p>
-                    <a class="btn btn-primary disabled placeholder col-6"></a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card text-bg-secondary border-secondary" aria-hidden="true">
-                <div class="card-body">
-                    <h5 class="card-title placeholder-glow">
-                    <span class="placeholder col-6"></span>
-                    </h5>
-                    <p class="card-text placeholder-glow">
-                    <span class="placeholder col-7"></span>
-                    <span class="placeholder col-4"></span>
-                    <span class="placeholder col-4"></span>
-                    <span class="placeholder col-6"></span>
-                    <span class="placeholder col-8"></span>
-                    </p>
-                    <a class="btn btn-primary disabled placeholder col-6"></a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card text-bg-secondary border-secondary" aria-hidden="true">
-                <div class="card-body">
-                    <h5 class="card-title placeholder-glow">
-                    <span class="placeholder col-6"></span>
-                    </h5>
-                    <p class="card-text placeholder-glow">
-                    <span class="placeholder col-7"></span>
-                    <span class="placeholder col-4"></span>
-                    <span class="placeholder col-4"></span>
-                    <span class="placeholder col-6"></span>
-                    <span class="placeholder col-8"></span>
-                    </p>
-                    <a class="btn btn-primary disabled placeholder col-6"></a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card text-bg-secondary border-secondary" aria-hidden="true">
-                <div class="card-body">
-                    <h5 class="card-title placeholder-glow">
-                    <span class="placeholder col-6"></span>
-                    </h5>
-                    <p class="card-text placeholder-glow">
-                    <span class="placeholder col-7"></span>
-                    <span class="placeholder col-4"></span>
-                    <span class="placeholder col-4"></span>
-                    <span class="placeholder col-6"></span>
-                    <span class="placeholder col-8"></span>
-                    </p>
-                    <a class="btn btn-primary disabled placeholder col-6"></a>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% endfor %}
+</div>
 </main>
 {% endblock %}

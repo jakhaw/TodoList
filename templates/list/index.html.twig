@@ -18,11 +18,31 @@
         <ul class="list-group list-group-flush">
             {% for task in tasks %}
                 <li class="list-group-item">
-                    <input class="form-check-input me-3" type="checkbox">
+                    <input class="form-check-input me-3" role="button" type="checkbox" id="{{task.id}}">
                     <span>{{task.description}}</span>
                 </li>
             {% endfor %}
         </ul>
     </div>
 </main>
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('.form-check-input').click(function(element){
+            let task_id = element.currentTarget.id;
+
+            $.ajax({
+                url: '{{path('app_task_remove')}}',
+                type: 'post',
+                data: {'id': task_id},
+                async: true,
+                context: this,
+                success: function(){
+                    $(element.currentTarget).parent().addClass('text-decoration-line-through');
+                    $(element.currentTarget).attr('disabled', true);
+                }
+            })
+        })
+    </script>
+{% endblock %}
 {% endblock %}

@@ -49,4 +49,17 @@ class ListController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/task_remove', name: 'app_task_remove')]
+    public function taskDelete(Request $request): Response
+    {
+        $remove_task_id = $request->get('id');
+
+        $task_to_remove = $this->taskRepository->findOneBy(['id' => $remove_task_id]);
+
+        $this->entityManager->remove($task_to_remove);
+        $this->entityManager->flush();
+
+        return new Response(Response::HTTP_OK);
+    }
 }

@@ -1,6 +1,6 @@
 # TodoList
 
-Register and login to Your account, create multiple todolists, add multiple tasks and check what u already completed.
+Register and login to Your account, create multiple todolists, add multiple tasks and mark what u already completed.
 
 ## Requirements
 

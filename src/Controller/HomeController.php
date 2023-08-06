@@ -47,4 +47,17 @@ class HomeController extends AbstractController
             'todolists' => $todolists,
         ]);
     }
+
+    #[Route('/todolist_remove', name: 'app_todolist_remove')]
+    public function remove_todo_list(Request $request): Response
+    {
+        $remove_todolist_id = $request->get('id');
+
+        $todolist_to_remove = $this->todoListRepository->findOneBy(['id' => $remove_todolist_id]);
+
+        $this->entityManager->remove($todolist_to_remove);
+        $this->entityManager->flush();
+
+        return new Response(Response::HTTP_OK);
+    }
 }

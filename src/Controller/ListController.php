@@ -21,7 +21,7 @@ class ListController extends AbstractController
     ) {
     }
 
-    #[Route('/list/{id}', name: 'app_list')]
+    #[Route('/list/{id}', name: 'app_list', methods: ['GET', 'POST'])]
     public function index($id, Request $request): Response
     {
         $todolist = $this->todoListRepository->findOneBy(['id' => $id]);
@@ -50,7 +50,7 @@ class ListController extends AbstractController
         ]);
     }
 
-    #[Route('/task_remove', name: 'app_task_remove')]
+    #[Route('/task_remove', name: 'app_task_remove', methods: ['DELETE'])]
     public function taskDelete(Request $request): Response
     {
         $remove_task_id = $request->get('id');

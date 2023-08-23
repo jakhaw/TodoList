@@ -21,7 +21,7 @@ class HomeController extends AbstractController
     ) {
     }
 
-    #[Route('/home', name: 'app_home')]
+    #[Route('/home', name: 'app_home', methods: ['GET', 'POST'])]
     public function index(Request $request): Response
     {
         $todolist = new TodoList();
@@ -48,7 +48,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/todolist_remove', name: 'app_todolist_remove')]
+    #[Route('/todolist_remove', name: 'app_todolist_remove', methods: ['DELETE'])]
     public function remove_todo_list(Request $request): Response
     {
         $remove_todolist_id = $request->get('id');

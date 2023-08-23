@@ -38,7 +38,7 @@
 
             $.ajax({
                 url: '{{path('app_todolist_remove')}}',
-                type: 'post',
+                type: 'delete',
                 data: {'id': todolist_id},
                 async: true,
                 context: this,

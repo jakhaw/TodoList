@@ -33,7 +33,7 @@
 
             $.ajax({
                 url: '{{path('app_task_remove')}}',
-                type: 'post',
+                type: 'delete',
                 data: {'id': task_id},
                 async: true,
                 context: this,

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\TodoList;
 use App\Form\TodolistFormType;
 use App\Repository\TodoListRepository;
+use App\Service\FindEntity;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,17 +27,14 @@ class HomeController extends AbstractController
     {
         $todolist = new TodoList();
         $form = $this->createForm(TodolistFormType::class, $todolist);
+        
         $user = $this->security->getUser();
-        $todolists = $user->getTodolists();
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             
-            $newTodoList = $form->getData();
-
-            $newTodoList->setUser($user);
-
-            $this->entityManager->persist($newTodoList);
+            $todolist->setUser($user);
+            $this->entityManager->persist($todolist);
             $this->entityManager->flush();
 
             return $this->redirectToRoute('app_home');
@@ -44,18 +42,16 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', [
             'form' => $form->createView(),
-            'todolists' => $todolists,
+            'todolists' => $user->getTodolists(),
         ]);
     }
 
     #[Route('/todolist_remove', name: 'app_todolist_remove', methods: ['DELETE'])]
-    public function remove_todo_list(Request $request): Response
+    public function remove_todo_list(Request $request, FindEntity $findEntity): Response
     {
-        $remove_todolist_id = $request->get('id');
+        $todolist = $findEntity->findTaskById($request->get('id'), $this->todoListRepository);
 
-        $todolist_to_remove = $this->todoListRepository->findOneBy(['id' => $remove_todolist_id]);
-
-        $this->entityManager->remove($todolist_to_remove);
+        $this->entityManager->remove($todolist);
         $this->entityManager->flush();
 
         return new Response(Response::HTTP_OK);

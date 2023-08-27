@@ -9,7 +9,7 @@ use App\Repository\TodoListRepository;
 
 class FindEntity 
 {
-    public function findTaskById($id, TaskRepository|TodoListRepository $entityRepository): Task|TodoList
+    public function findEntityById($id, TaskRepository|TodoListRepository $entityRepository): Task|TodoList
     {
         $entity = $entityRepository->findOneBy(['id' => $id]);
 

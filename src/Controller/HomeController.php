@@ -47,9 +47,9 @@ class HomeController extends AbstractController
     }
 
     #[Route('/todolist_remove', name: 'app_todolist_remove', methods: ['DELETE'])]
-    public function remove_todo_list(Request $request, FindEntity $findEntity): Response
+    public function todolistDelete(Request $request, FindEntity $findEntity): Response
     {
-        $todolist = $findEntity->findTaskById($request->get('id'), $this->todoListRepository);
+        $todolist = $findEntity->findEntityById($request->get('id'), $this->todoListRepository);
 
         $this->entityManager->remove($todolist);
         $this->entityManager->flush();

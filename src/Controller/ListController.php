@@ -49,7 +49,7 @@ class ListController extends AbstractController
     #[Route('/task_remove', name: 'app_task_remove', methods: ['DELETE'])]
     public function taskDelete(Request $request, FindEntity $findEntity): Response
     {
-        $task = $findEntity->findTaskById($request->get('id'), $this->taskRepository);
+        $task = $findEntity->findEntityById($request->get('id'), $this->taskRepository);
 
         $this->entityManager->remove($task);
         $this->entityManager->flush();

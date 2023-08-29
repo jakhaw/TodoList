@@ -22,6 +22,7 @@ class HomeController extends AbstractController
     {
         $todolist = new TodoList();
         $form = $this->createForm(TodolistFormType::class, $todolist);
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = $this->getUser();
         $form->handleRequest($request);
 

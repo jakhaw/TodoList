@@ -5,19 +5,14 @@ namespace App\Controller;
 use App\Entity\TodoList;
 use App\Form\TodolistFormType;
 use App\Repository\TodoListRepository;
-use App\Service\FindEntity;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
 
 class HomeController extends AbstractController
 {
     public function __construct(
-        private Security $security,
-        private EntityManagerInterface $entityManager,
         private TodoListRepository $todoListRepository,
     ) {
     }
@@ -27,16 +22,12 @@ class HomeController extends AbstractController
     {
         $todolist = new TodoList();
         $form = $this->createForm(TodolistFormType::class, $todolist);
-        
-        $user = $this->security->getUser();
-
+        $user = $this->getUser();
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            
-            $todolist->setUser($user);
-            $this->entityManager->persist($todolist);
-            $this->entityManager->flush();
 
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $this->todoListRepository->add($todolist, $user);
             return $this->redirectToRoute('app_home');
         };
 
@@ -47,13 +38,9 @@ class HomeController extends AbstractController
     }
 
     #[Route('/todolist_remove', name: 'app_todolist_remove', methods: ['DELETE'])]
-    public function todolistDelete(Request $request, FindEntity $findEntity): Response
+    public function todolistDelete(Request $request): Response
     {
-        $todolist = $findEntity->findEntityById($request->get('id'), $this->todoListRepository);
-
-        $this->entityManager->remove($todolist);
-        $this->entityManager->flush();
-
+        $this->todoListRepository->delete($request);
         return new Response(Response::HTTP_OK);
     }
 }

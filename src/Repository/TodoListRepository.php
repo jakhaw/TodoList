@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\TodoList;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @extends ServiceEntityRepository<TodoList>
@@ -19,6 +21,22 @@ class TodoListRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, TodoList::class);
+    }
+
+    public function delete(Request $request): void
+    {
+        $todolist = $this->find($request->get('id'));
+
+        $this->getEntityManager()->remove($todolist);
+        $this->getEntityManager()->flush();
+    }
+
+    public function add(TodoList $todoList, User $user): void
+    {
+        $todoList->setUser($user);
+
+        $this->getEntityManager()->persist($todoList);
+        $this->getEntityManager()->flush();
     }
 
 //    /**

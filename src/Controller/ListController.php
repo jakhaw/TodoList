@@ -6,9 +6,6 @@ use App\Entity\Task;
 use App\Entity\TodoList;
 use App\Form\TaskFormType;
 use App\Repository\TaskRepository;
-use App\Repository\TodoListRepository;
-use App\Service\FindEntity;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,9 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ListController extends AbstractController
 {
     public function __construct(
-        private EntityManagerInterface $entityManager,
         private TaskRepository $taskRepository,
-        private TodoListRepository $todoListRepository,
     ) {
     }
 
@@ -30,12 +25,9 @@ class ListController extends AbstractController
         $form = $this->createForm(TaskFormType::class, $task);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
-
-            $task->setTodolist($todolist);
-            $this->entityManager->persist($task);
-            $this->entityManager->flush();
-
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $this->taskRepository->add($task, $todolist);
             return $this->redirectToRoute('app_list', ['id' => $todolist->getId()]);
         };
 
@@ -47,13 +39,9 @@ class ListController extends AbstractController
     }
 
     #[Route('/task_remove', name: 'app_task_remove', methods: ['DELETE'])]
-    public function taskDelete(Request $request, FindEntity $findEntity): Response
+    public function taskDelete(Request $request): Response
     {
-        $task = $findEntity->findEntityById($request->get('id'), $this->taskRepository);
-
-        $this->entityManager->remove($task);
-        $this->entityManager->flush();
-
+        $this->taskRepository->delete($request);
         return new Response(Response::HTTP_OK);
     }
 }

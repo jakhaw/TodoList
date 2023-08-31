@@ -1,20 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<nav class="navbar bg-secondary-subtle position-relative">
-        <span class="position-absolute top-50 start-0 translate-middle-y"><a href="{{path('app_home')}}" class="me-3 ms-3"><button class="btn btn-outline-secondary btn-lg">Home</button></a></span>
-    <div class="container">
-        <span>Add new task to the {{todolist.name}}</span>
-        {{ form_start(form) }}
-            <div class="d-flex">
-                {{ form_widget(form) }}
-                <button class="btn btn-outline-secondary ms-3" type="submit">Add</button>
+<nav class="navbar bg-secondary-subtle">
+    <div class="container-fluid">
+        <div class="row mx-auto">
+            <div class="col-auto d-flex align-items-center">
+                <a href="{{path('app_home')}}" class="me-3 ms-3"><button class="btn btn-outline-secondary btn-lg">Home</button></a>
             </div>
-        {{ form_end(form) }}
+            <div class="col-6 d-flex align-items-center fs-5">
+                <span>Add new task to the {{todolist.name}}</span>
+            </div>
+            <div class="col">    
+                {{ form_start(form) }}
+                    <div class="d-flex">
+                        {{ form_widget(form) }}
+                        <button class="btn btn-outline-secondary ms-3" type="submit">Add</button>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
     </div>
 </nav>
 <main>
-    <div class="container-md p-2">
+    <div class="container p-2">
         <ul class="list-group list-group-flush">
             {% for task in tasks %}
                 <li class="list-group-item">

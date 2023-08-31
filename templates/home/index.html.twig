@@ -1,29 +1,39 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<nav class="navbar bg-secondary-subtle position-relative">
-    <a href="{{path('app_logout')}}" class="position-absolute top-50 start-0 translate-middle-y link-secondary link-opacity-50-hover link-underline-opacity-50-hover ms-3 fs-5">Logout</a>
-    <div class="container">
-        <span>Hello {{app.user.email}} create Your new TODO LIST</span>
-        {{ form_start(form) }}
-            <div class="d-flex">
-                {{ form_widget(form) }}
-                <button class="btn btn-outline-secondary ms-3" type="submit">Add</button>
+<nav class="navbar bg-secondary-subtle">
+    <div class="container-fluid">
+        <div class="row mx-auto">
+            <div class="col-auto d-flex align-items-center">
+                <a href="{{path('app_logout')}}" class="link-secondary link-opacity-50-hover link-underline-opacity-50-hover ms-3 fs-5">Logout</a>
             </div>
-        {{ form_end(form) }}
+            <div class="col-7 d-flex align-items-center fs-5">
+                <span class="">Hello {{app.user.email}} create Your new TODO LIST</span>
+            </div>
+            <div class="col">
+                {{ form_start(form) }}
+                    <div class="d-flex">
+                        {{ form_widget(form) }}
+                        <button class="btn btn-outline-secondary ms-3" type="submit">Add</button>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
     </div>
 </nav>
 <main>
 <div class="row row-cols-1 row-cols-md-4 row-cols-xl-5 g-5 mx-auto p-5">
     {% for todolist in todolists %}
-        <div class="col">
-            <div class="card text-bg-secondary border-secondary" aria-hidden="true" style="height: 8rem">
+        <div class="col-auto">
+            <div class="card text-bg-secondary border-secondary" aria-hidden="true" style="min-height: 8rem">
                 <div class="card-body">
                     <h5 class="card-title">
                         {{todolist.name}}
                     </h5>
-                    <a href="{{path('app_list', {id: todolist.id})}}"><button class="btn btn-outline-light mt-3">Open</button></a>
-                    <button id="{{todolist.id}}" class="btn btn-danger mt-3 ms-3">Delete</button>
+                    <div class="mt-4">
+                        <a href="{{path('app_list', {id: todolist.id})}}"><button class="btn btn-outline-light mt-2">Open</button></a>
+                        <button id="{{todolist.id}}" class="btn btn-danger mt-2">Delete</button>
+                    </div>
                 </div>
             </div>
         </div>

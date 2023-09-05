@@ -7,10 +7,10 @@
             <div class="col-auto d-flex align-items-center">
                 <a href="{{path('app_logout')}}" class="link-secondary link-opacity-50-hover link-underline-opacity-50-hover ms-3 fs-5">Logout</a>
             </div>
-            <div class="col-7 d-flex align-items-center fs-5">
-                <span class="">Hello {{app.user.email}} create Your new TODO LIST</span>
+            <div class="col col-md-5 d-flex align-items-center fs-5 justify-content-center">
+                <span class="">{{app.user.email}}'s TodoLists</span>
             </div>
-            <div class="col">
+            <div class="col-12 col-md d-flex align-items-center justify-content-center mt-3 mt-md-0">
                 {{ form_start(form) }}
                     <div class="d-flex">
                         {{ form_widget(form) }}
@@ -22,19 +22,20 @@
     </div>
 </nav>
 <main>
-<div class="row row-cols-1 row-cols-md-4 row-cols-xl-5 g-5 mx-auto p-5">
+<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-5 g-5 mx-auto p-5">
     {% for todolist in todolists %}
-        <div class="col-auto">
-            <div class="card text-bg-secondary border-secondary" aria-hidden="true" style="min-height: 8rem">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        {{todolist.name}}
-                    </h5>
-                    <div class="mt-4">
-                        <a href="{{path('app_list', {id: todolist.id})}}"><button class="btn btn-outline-light mt-2">Open</button></a>
-                        <button id="{{todolist.id}}" class="btn btn-danger mt-2">Delete</button>
+        <div class="col p-1">
+            <div class="card bg-secondary-subtle border-secondary-subtle" aria-hidden="true" style="min-height: 7rem">
+                <div class="card-header p-2">
+                    <div class="d-grid">
+                        <button id="{{todolist.id}}" class="btn-sm btn btn-outline-danger text-uppercase font-monospace">Delete</button>
                     </div>
                 </div>
+                <a href="{{path('app_list', {id: todolist.id})}}" class="link-underline link-underline-opacity-0 link-dark link-opacity-50-hover">
+                    <div class="card-body fs-4">
+                        {{todolist.name}}
+                    </div>
+                </a>
             </div>
         </div>
     {% endfor %}

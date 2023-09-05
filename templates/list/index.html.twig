@@ -7,10 +7,10 @@
             <div class="col-auto d-flex align-items-center">
                 <a href="{{path('app_home')}}" class="me-3 ms-3"><button class="btn btn-outline-secondary btn-lg">Home</button></a>
             </div>
-            <div class="col-6 d-flex align-items-center fs-5">
+            <div class="col col-md-5 d-flex align-items-center fs-5 justify-content-center">
                 <span>Add new task to the {{todolist.name}}</span>
             </div>
-            <div class="col">    
+            <div class="col-12 col-md d-flex align-items-center justify-content-center mt-3 mt-md-0">    
                 {{ form_start(form) }}
                     <div class="d-flex">
                         {{ form_widget(form) }}
